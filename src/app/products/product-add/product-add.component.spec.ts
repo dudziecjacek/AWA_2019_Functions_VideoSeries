@@ -1,4 +1,8 @@
+import { ProductService } from './../shared/product.service';
+import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { ProductAddComponent } from './product-add.component';
 
@@ -8,9 +12,13 @@ describe('ProductAddComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductAddComponent ]
+      declarations: [ProductAddComponent],
+      imports: [ReactiveFormsModule, ImageCropperModule, RouterTestingModule],
+      providers: [
+        { provide: ProductService, useClass: ProductServiceStub}
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -23,3 +31,5 @@ describe('ProductAddComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+class ProductServiceStub {}
